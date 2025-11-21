@@ -121,4 +121,4 @@ if (len(local_files) == len(local_labels)) and (len(national_files) == len(natio
     output.seek(0)
 
     st.success("✅ Processing complete!")
-    st.download_button("📥 Download Excel File", data=output, file_name="overprescribing_charts.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    st.download_button("📥 Download Excel File", data=output, file_name="compiled_dashboard_data.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
