@@ -5,32 +5,20 @@ from io import StringIO
 
 st.set_page_config(page_title="CSV Processor", layout="wide")
 st.title("CSV Processor")
-st.caption(
-    "Default shows a single total. Use 'Split aggregation by' to break the total down by any column. "
-    "Month column is still used for date parsing / sorting and for determining newest denominator when required."
-)
 
 # --- Load data ---
 uploaded = st.file_uploader("Upload CSV", type=["csv"])
-default_path = "/mnt/data/Hypotensive Meds ICB Data.csv"
-use_default = uploaded is None
-if use_default:
-    st.info(f"No upload detected — using default path: `{default_path}` (if available).")
+
+if uploaded is None:
+    st.info("Please upload a CSV file to begin.")
+    st.stop()
 
 @st.cache_data
-def load_df(uploaded_file, default_path, use_default):
-    if not use_default and uploaded_file is not None:
-        return pd.read_csv(uploaded_file)
-    else:
-        try:
-            return pd.read_csv(default_path)
-        except Exception:
-            return None
+def load_df(uploaded_file):
+    return pd.read_csv(uploaded_file)
 
-df = load_df(uploaded, default_path, use_default)
-if df is None:
-    st.error("No data loaded. Upload a CSV or ensure the default path is valid.")
-    st.stop()
+df = load_df(uploaded)
+
 
 st.subheader("Original loaded data (sample)")
 st.dataframe(df.head(), hide_index=True)
