@@ -200,7 +200,7 @@ if not groupby_cols:
         s = sorted_for_last[denominator_col].dropna()
         total_den = s.iloc[-1] if len(s) > 0 else pd.NA
 
-    st.subheader("Total (no splits selected)")
+    st.subheader("Aggregated data (no splits selected)")
     col1, col2 = st.columns(2)
     col1.metric(label=f"Sum of {numerator_col}", value=float(total_num))
     col2.metric(label=f"{'Sum of' if sum_denominator else 'Most recent'} {denominator_col}", value=(float(total_den) if pd.notna(total_den) else "NA"))
