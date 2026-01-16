@@ -20,7 +20,7 @@ def load_df(uploaded_file):
 df = load_df(uploaded)
 
 
-st.subheader("Original loaded data (sample)")
+st.subheader("Original loaded data")
 st.dataframe(df.head(), hide_index=True)
 
 # --- Sidebar: core picks + Data cleaning + Define Rate ---
@@ -56,7 +56,6 @@ with st.sidebar:
 
     st.markdown("---")
     st.subheader("Drop columns/rows (optional)")
-    st.caption("Drop columns or rows before aggregation. Cleaned preview appears after these selections.")
 
     # Drop columns UI
     drop_columns = st.multiselect(
@@ -85,8 +84,7 @@ with st.sidebar:
         )
 
     st.markdown("---")
-    st.subheader("Split options (choose any cleaned column)")
-    st.markdown("Split aggregation by any columns from the cleaned dataset (numerator/denominator are excluded).")
+    st.subheader("Split options")
     # split multiselect populated later after cleaning
 
 # --- Apply data cleaning to create df_work (cleaned dataset) ---
@@ -100,7 +98,7 @@ if drop_columns:
 if drop_rows_col and drop_row_values:
     df_work = df_work[~df_work[drop_rows_col].astype(str).isin(drop_row_values)].reset_index(drop=True)
 
-st.subheader("Cleaned data preview (sample)")
+st.subheader("Cleaned data")
 st.dataframe(df_work.head(), hide_index=True)
 
 # After cleaning, build dynamic controls that depend on the cleaned columns:
